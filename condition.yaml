@@ -1,0 +1,17 @@
+---
+ - name: Testing when condition on facts
+   hosts: webservers
+   become: yes
+   tasks:
+     - name: Install webserver package on RedHat servers
+       yum:
+          name: httpd
+          state: latest
+       when: ansible_distribution == "RHEL"
+
+     - name: Install webserver package on Ubuntu servers
+       apt:
+          name: apache2
+          state: latest
+       when: ansible_distribution == "Ubuntu"
+
